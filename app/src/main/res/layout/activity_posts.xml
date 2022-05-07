@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <include layout="@layout/toolbar_main"/>
+        <EditText
+            android:layout_marginHorizontal="@dimen/marginHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/black"
+            android:hint="@string/please_input_text"
+            android:fontFamily="@font/font"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_size_medium" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            tools:listitem="@layout/layout_post" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

@@ -32,43 +32,43 @@
                 android:includeFontPadding="false"
                 android:text="@string/recycler"
                 android:textColor="@color/black"
-                android:textSize="32sp"
+                android:textSize="@dimen/font_size_big"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/posts"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="@dimen/marginTop_big"
                 android:fontFamily="@font/font"
                 android:includeFontPadding="false"
                 android:text="@string/posts"
                 android:textColor="@color/black"
-                android:textSize="32sp"
+                android:textSize="@dimen/font_size_big"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/viewpager"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="@dimen/marginTop_big"
                 android:fontFamily="@font/font"
                 android:includeFontPadding="false"
                 android:text="@string/viewpager"
                 android:textColor="@color/black"
-                android:textSize="32sp"
+                android:textSize="@dimen/font_size_big"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/camera"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="@dimen/marginTop_big"
                 android:fontFamily="@font/font"
                 android:includeFontPadding="false"
                 android:text="@string/camera"
                 android:textColor="@color/black"
-                android:textSize="32sp"
+                android:textSize="@dimen/font_size_big"
                 android:textStyle="bold" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -80,8 +80,8 @@
             android:includeFontPadding="false"
             android:text="develop by Mt.9"
             android:textColor="@color/black"
-            android:layout_marginBottom="20dp"
-            android:textSize="16sp"
+            android:layout_marginBottom="@dimen/marginBottom_parent"
+            android:textSize="@dimen/font_size_small"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
