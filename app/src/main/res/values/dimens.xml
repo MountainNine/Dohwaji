@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="font_size_big">32sp</dimen>
+    <dimen name="font_size_medium">24sp</dimen>
+    <dimen name="font_size_small">16sp</dimen>
+    <dimen name="toolbar_height">64dp</dimen>
+    <dimen name="marginTop_big">32dp</dimen>
+    <dimen name="marginBottom_parent">20dp</dimen>
+    <dimen name="marginHorizontal">16dp</dimen>
+    <dimen name="list_height">48dp</dimen>
+    <dimen name="layout_post_marginStart">4dp</dimen>
+    <dimen name="image_padding">4dp</dimen>
+    <dimen name="image_size">32dp</dimen>
+    <dimen name="line_height">1dp</dimen>
+</resources>
