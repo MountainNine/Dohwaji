@@ -15,7 +15,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main),
     View.OnClickListener {
 
-    val BASE_URL = "https://a5mppwt298.execute-api.ap-northeast-2.amazonaws.com/dohwaji/getword"
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)

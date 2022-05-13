@@ -9,6 +9,7 @@
         android:layout_marginHorizontal="@dimen/marginHorizontal">
 
         <TextView
+            android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/layout_post_marginStart"
