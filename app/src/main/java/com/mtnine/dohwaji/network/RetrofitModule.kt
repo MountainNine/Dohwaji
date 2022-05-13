@@ -24,7 +24,7 @@ object RetrofitModule {
 
     @Provides
     @Singleton
-    fun provideBankingApi(
+    fun provideRetrofitApi(
         okHttpClient: OkHttpClient,
         gsonFactory: Converter.Factory,
     ): RetrofitApi {

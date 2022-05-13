@@ -4,12 +4,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mtnine.dohwaji.R
 import com.mtnine.dohwaji.databinding.LayoutItemBinding
 
-class RecyclerListAdapter : RecyclerView.Adapter<RecyclerListAdapter.RecyclerListViewHolder>() {
-    var items = ArrayList<String>()
+class RecyclerListAdapter() :
+    PagingDataAdapter<String, RecyclerListAdapter.RecyclerListViewHolder>(diffCallback) {
 
     inner class RecyclerListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = LayoutItemBinding.bind(view)
@@ -22,13 +24,20 @@ class RecyclerListAdapter : RecyclerView.Adapter<RecyclerListAdapter.RecyclerLis
     }
 
     override fun onBindViewHolder(holder: RecyclerListViewHolder, position: Int) {
-        val item = items[position]
+        val item = getItem(position)
         holder.binding.text.text = item
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
+    companion object {
+        val diffCallback = object : DiffUtil.ItemCallback<String>() {
+            override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
+                return oldItem == newItem
+            }
 
+            override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
+                return oldItem == newItem
+            }
+        }
+    }
 
 }
