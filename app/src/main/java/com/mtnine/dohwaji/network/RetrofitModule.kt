@@ -55,8 +55,4 @@ object RetrofitModule {
     fun provideGsonFactory(): Converter.Factory {
         return GsonConverterFactory.create(GsonBuilder().setLenient().create())
     }
-
-    @Provides
-    @Singleton
-    fun provideMainRepository(retrofitApi: RetrofitApi) = MainRepository(retrofitApi)
 }
