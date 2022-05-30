@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -34,10 +35,18 @@ class PostFragment : BaseFragment<FragmentPostBinding>(R.layout.fragment_post), 
         binding.list.layoutManager = LinearLayoutManager(requireContext())
         binding.list.adapter = adapter
         binding.add.setOnClickListener {
-            val post = Post(text = binding.edit.text.toString())
-            viewModel.insertPost(post).invokeOnCompletion {
-                binding.edit.text?.clear()
-                refreshData()
+            if (binding.edit.text.toString().isEmpty()) {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.please_input_text),
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                val post = Post(text = binding.edit.text.toString())
+                viewModel.insertPost(post).invokeOnCompletion {
+                    binding.edit.text?.clear()
+                    refreshData()
+                }
             }
         }
         lifecycleScope.launch {

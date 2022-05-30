@@ -4,17 +4,17 @@
         android:id="@+id/menu_list"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_list_24"
-        android:title="리스트"/>
+        android:title="@string/list"/>
 
     <item
         android:id="@+id/menu_post"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_comment_24"
-        android:title="포스트"/>
+        android:title="@string/post"/>
 
     <item
         android:id="@+id/menu_mirror"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_photo_camera_24"
-        android:title="거울"/>
+        android:title="@string/mirror"/>
 </menu>

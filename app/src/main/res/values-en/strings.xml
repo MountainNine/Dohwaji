@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Dohwaji</string>
+    <string name="recycler">Recycler</string>
+    <string name="viewpager">Viewpager</string>
+    <string name="camera">Camera</string>
+    <string name="please_input_text">Please Input Text</string>
+    <string name="capture">Capture</string>
+    <string name="add">Add</string>
+    <string name="list">List</string>
+    <string name="post">Post</string>
+    <string name="mirror">Mirror</string>
+</resources>

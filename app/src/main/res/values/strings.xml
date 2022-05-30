@@ -1,11 +1,12 @@
 <resources>
     <string name="app_name">Dohwaji</string>
     <string name="recycler">리사이클러</string>
-    <string name="posts">게시판</string>
     <string name="viewpager">뷰페이저</string>
     <string name="camera">카메라</string>
     <string name="please_input_text">텍스트를 입력하세요</string>
     <string name="capture">캡처</string>
     <string name="add">추가</string>
-    <string name="title_activity_view_pager">ViewPagerActivity</string>
+    <string name="list">리스트</string>
+    <string name="post">포스트</string>
+    <string name="mirror">거울</string>
 </resources>
