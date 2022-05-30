@@ -2,7 +2,6 @@ package com.mtnine.dohwaji.view
 
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.google.android.material.navigation.NavigationBarView
 import com.mtnine.dohwaji.R
 import com.mtnine.dohwaji.base.BaseActivity
@@ -34,7 +33,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main),
                     .commitAllowingStateLoss()
                 return true
             }
-            R.id.menu_camera -> {
+            R.id.menu_mirror -> {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.linearLayout, CameraFragment()).commitAllowingStateLoss()
                 return true
