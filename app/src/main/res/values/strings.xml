@@ -7,4 +7,5 @@
     <string name="please_input_text">텍스트를 입력하세요</string>
     <string name="capture">캡처</string>
     <string name="add">추가</string>
+    <string name="title_activity_view_pager">ViewPagerActivity</string>
 </resources>

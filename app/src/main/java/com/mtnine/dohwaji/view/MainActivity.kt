@@ -1,41 +1,45 @@
 package com.mtnine.dohwaji.view
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.View
+import android.view.MenuItem
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.lifecycle.ViewModel
+import com.google.android.material.navigation.NavigationBarView
 import com.mtnine.dohwaji.R
 import com.mtnine.dohwaji.base.BaseActivity
 import com.mtnine.dohwaji.databinding.ActivityMainBinding
-import com.mtnine.dohwaji.vm.MyViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main),
-    View.OnClickListener {
-
+    NavigationBarView.OnItemSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
-        installSplashScreen()
+        setTheme(R.style.Theme_Dohwaji)
         super.onCreate(savedInstanceState)
-        binding.toolbar.back.visibility = View.GONE
-        binding.recycler.setOnClickListener(this)
-        binding.posts.setOnClickListener(this)
-        binding.viewpager.setOnClickListener(this)
-        binding.camera.setOnClickListener(this)
+
+        supportFragmentManager.beginTransaction().add(R.id.linearLayout, RecyclerFragment())
+            .commit()
+
+        binding.bottomNav.setOnItemSelectedListener(this)
     }
 
-    override fun onClick(v: View?) {
-        val nextActivity = when (v) {
-            binding.recycler -> RecyclerActivity::class.java // Retrofit + Coroutine + Paging
-            binding.posts -> PostsActivity::class.java // Room
-            binding.viewpager -> ViewPagerActivity::class.java // ViewPager + BottomNavigation
-            binding.camera -> CameraActivity::class.java // CameraX
-            else -> null
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_list -> {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.linearLayout, RecyclerFragment()).commitAllowingStateLoss()
+                return true
+            }
+            R.id.menu_post -> {
+                supportFragmentManager.beginTransaction().replace(R.id.linearLayout, PostFragment())
+                    .commitAllowingStateLoss()
+                return true
+            }
+            R.id.menu_camera -> {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.linearLayout, CameraFragment()).commitAllowingStateLoss()
+                return true
+            }
         }
-
-        if (nextActivity != null) {
-            startActivity(Intent(this, nextActivity))
-        }
+        return false
     }
 }

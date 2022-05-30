@@ -6,10 +6,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/toolbar_main" />
-
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edit"
             android:layout_width="match_parent"

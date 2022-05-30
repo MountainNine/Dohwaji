@@ -2,16 +2,18 @@ package com.mtnine.dohwaji.view
 
 import android.content.Context
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import androidx.activity.viewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mtnine.dohwaji.R
-import com.mtnine.dohwaji.base.BaseActivity
-import com.mtnine.dohwaji.databinding.ActivityPostsBinding
+import com.mtnine.dohwaji.base.BaseFragment
+import com.mtnine.dohwaji.databinding.FragmentPostBinding
 import com.mtnine.dohwaji.model.Post
 import com.mtnine.dohwaji.view.adapter.PostListAdapter
-import com.mtnine.dohwaji.view.adapter.RecyclerListAdapter
 import com.mtnine.dohwaji.view.listener.OnPostEditListener
 import com.mtnine.dohwaji.vm.MyViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,16 +21,18 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class PostsActivity : BaseActivity<ActivityPostsBinding>(R.layout.activity_posts), OnPostEditListener {
+class PostFragment : BaseFragment<FragmentPostBinding>(R.layout.fragment_post), OnPostEditListener {
     private val viewModel: MyViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        super.onCreateView(inflater, container, savedInstanceState)
         val adapter = PostListAdapter(this)
-        binding.list.layoutManager = LinearLayoutManager(this)
+        binding.list.layoutManager = LinearLayoutManager(requireContext())
         binding.list.adapter = adapter
-        binding.toolbar.back.setOnClickListener { finish() }
         binding.add.setOnClickListener {
             val post = Post(text = binding.edit.text.toString())
             viewModel.insertPost(post).invokeOnCompletion {
@@ -41,6 +45,7 @@ class PostsActivity : BaseActivity<ActivityPostsBinding>(R.layout.activity_posts
                 (binding.list.adapter as PostListAdapter).submitData(it)
             }
         }
+        return binding.root
     }
 
     fun refreshData() {
@@ -48,16 +53,18 @@ class PostsActivity : BaseActivity<ActivityPostsBinding>(R.layout.activity_posts
     }
 
     override fun onPostEditStart() {
-        this.currentFocus?.let { view ->
-            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        activity?.currentFocus?.let { view ->
+            val imm =
+                activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
             imm?.showSoftInput(view, 0)
         }
     }
 
     override fun onPostEditEnd(post: Post) {
         viewModel.updatePost(post)
-        this.currentFocus?.let { view ->
-            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        activity?.currentFocus?.let { view ->
+            val imm =
+                activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
             imm?.hideSoftInputFromWindow(view.windowToken, 0)
         }
     }

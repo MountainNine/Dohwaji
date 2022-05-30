@@ -1,12 +1,15 @@
 package com.mtnine.dohwaji.view
 
 import android.os.Bundle
-import androidx.activity.viewModels
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mtnine.dohwaji.R
-import com.mtnine.dohwaji.base.BaseActivity
-import com.mtnine.dohwaji.databinding.ActivityRecyclerBinding
+import com.mtnine.dohwaji.base.BaseFragment
+import com.mtnine.dohwaji.databinding.FragmentRecyclerBinding
 import com.mtnine.dohwaji.view.adapter.RecyclerListAdapter
 import com.mtnine.dohwaji.vm.MyViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -14,16 +17,17 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class RecyclerActivity : BaseActivity<ActivityRecyclerBinding>(R.layout.activity_recycler) {
+class RecyclerFragment : BaseFragment<FragmentRecyclerBinding>(R.layout.fragment_recycler) {
     private val viewModel: MyViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        binding.toolbar.back.setOnClickListener { finish() }
-
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        super.onCreateView(inflater, container, savedInstanceState)
         val adapter = RecyclerListAdapter()
-        binding.list.layoutManager = LinearLayoutManager(this)
+        binding.list.layoutManager = LinearLayoutManager(requireContext())
         binding.list.adapter = adapter
 
         lifecycleScope.launch {
@@ -31,5 +35,6 @@ class RecyclerActivity : BaseActivity<ActivityRecyclerBinding>(R.layout.activity
                 (binding.list.adapter as RecyclerListAdapter).submitData(it)
             }
         }
+        return binding.root
     }
 }
