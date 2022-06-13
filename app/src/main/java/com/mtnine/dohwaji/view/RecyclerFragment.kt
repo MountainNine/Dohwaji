@@ -17,8 +17,13 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class RecyclerFragment : BaseFragment<FragmentRecyclerBinding>(R.layout.fragment_recycler) {
+class RecyclerFragment : BaseFragment<FragmentRecyclerBinding>() {
     private val viewModel: MyViewModel by viewModels()
+
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentRecyclerBinding = FragmentRecyclerBinding.inflate(inflater, container, false)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,10 +32,9 @@ class RecyclerFragment : BaseFragment<FragmentRecyclerBinding>(R.layout.fragment
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
         val adapter = RecyclerListAdapter()
-        binding.list.layoutManager = LinearLayoutManager(requireContext())
         binding.list.adapter = adapter
 
-        lifecycleScope.launch {
+        lifecycleScope.launchWhenStarted {
             viewModel.getRecyclerPagingData().collect {
                 (binding.list.adapter as RecyclerListAdapter).submitData(it)
             }

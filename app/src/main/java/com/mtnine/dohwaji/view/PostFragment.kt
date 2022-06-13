@@ -14,6 +14,7 @@ import com.mtnine.dohwaji.R
 import com.mtnine.dohwaji.base.BaseFragment
 import com.mtnine.dohwaji.databinding.FragmentPostBinding
 import com.mtnine.dohwaji.model.Post
+import com.mtnine.dohwaji.util.Utils.toast
 import com.mtnine.dohwaji.view.adapter.PostListAdapter
 import com.mtnine.dohwaji.view.listener.OnPostEditListener
 import com.mtnine.dohwaji.vm.MyViewModel
@@ -22,8 +23,13 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class PostFragment : BaseFragment<FragmentPostBinding>(R.layout.fragment_post), OnPostEditListener {
+class PostFragment : BaseFragment<FragmentPostBinding>(), OnPostEditListener {
     private val viewModel: MyViewModel by viewModels()
+
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentPostBinding = FragmentPostBinding.inflate(inflater, container, false)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,15 +38,10 @@ class PostFragment : BaseFragment<FragmentPostBinding>(R.layout.fragment_post), 
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
         val adapter = PostListAdapter(this)
-        binding.list.layoutManager = LinearLayoutManager(requireContext())
         binding.list.adapter = adapter
         binding.add.setOnClickListener {
             if (binding.edit.text.toString().isEmpty()) {
-                Toast.makeText(
-                    requireContext(),
-                    getString(R.string.please_input_text),
-                    Toast.LENGTH_SHORT
-                ).show()
+                requireContext().toast(getString(R.string.please_input_text))
             } else {
                 val post = Post(text = binding.edit.text.toString())
                 viewModel.insertPost(post).invokeOnCompletion {
@@ -49,7 +50,7 @@ class PostFragment : BaseFragment<FragmentPostBinding>(R.layout.fragment_post), 
                 }
             }
         }
-        lifecycleScope.launch {
+        lifecycleScope.launchWhenStarted {
             viewModel.getPostPagingData().collect {
                 (binding.list.adapter as PostListAdapter).submitData(it)
             }

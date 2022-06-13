@@ -7,9 +7,4 @@ import kotlinx.coroutines.SupervisorJob
 
 @HiltAndroidApp
 class BaseApplication : Application() {
-    private val applicationScope = CoroutineScope(SupervisorJob())
-    override fun onCreate() {
-        super.onCreate()
-    }
-
 }

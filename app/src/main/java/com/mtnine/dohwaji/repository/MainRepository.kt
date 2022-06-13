@@ -1,18 +1,13 @@
 package com.mtnine.dohwaji.repository
 
-import androidx.lifecycle.MutableLiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.mtnine.dohwaji.base.PostPagingSource
-import com.mtnine.dohwaji.base.RecyclerPagingSource
 import com.mtnine.dohwaji.database.MainDao
 import com.mtnine.dohwaji.model.Post
 import com.mtnine.dohwaji.model.WordData
 import com.mtnine.dohwaji.network.RetrofitApi
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class MainRepository @Inject constructor(private val retrofitApi: RetrofitApi, private val mainDao: MainDao) {

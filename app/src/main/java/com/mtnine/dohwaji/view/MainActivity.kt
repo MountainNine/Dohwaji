@@ -9,7 +9,7 @@ import com.mtnine.dohwaji.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main),
+class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inflate(it) }),
     NavigationBarView.OnItemSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_Dohwaji)

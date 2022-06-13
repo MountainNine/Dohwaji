@@ -20,9 +20,14 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 @AndroidEntryPoint
-class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_camera),
+class CameraFragment : BaseFragment<FragmentCameraBinding>(),
     PermissionListener {
     private lateinit var cameraExecutor: ExecutorService
+
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ) = FragmentCameraBinding.inflate(inflater, container, false)
 
     override fun onCreateView(
         inflater: LayoutInflater,
