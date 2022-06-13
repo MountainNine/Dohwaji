@@ -8,50 +8,44 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mtnine.dohwaji.R
+import com.mtnine.dohwaji.base.BasePagingAdapter
 import com.mtnine.dohwaji.databinding.LayoutPostBinding
 import com.mtnine.dohwaji.model.Post
 import com.mtnine.dohwaji.view.listener.OnPostEditListener
 
 class PostListAdapter(private val onPostEditListener: OnPostEditListener) :
-    PagingDataAdapter<Post, PostListAdapter.PostListViewHolder>(diffCallback) {
+    BasePagingAdapter<Post, LayoutPostBinding>(diffCallback) {
 
-    inner class PostListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val binding = LayoutPostBinding.bind(view)
-    }
+    override fun onCreate(
+        inflater: LayoutInflater,
+        parent: ViewGroup,
+        viewType: Int
+    ) = LayoutPostBinding.inflate(inflater, parent, false)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostListViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.layout_post, parent, false)
-        return PostListViewHolder(view)
-    }
-
-    override fun onBindViewHolder(holder: PostListViewHolder, position: Int) {
-        val item = getItem(position)
+    override fun onBind(binding: LayoutPostBinding, item: Post, position: Int) {
         var editMode = false
-        if (item != null) {
-            holder.binding.text.setText(item.text)
-            holder.binding.edit.setOnClickListener {
-                if (!editMode) {
-                    Glide.with(holder.itemView).load(R.drawable.ic_baseline_check_24)
-                        .into(holder.binding.edit)
-                    holder.binding.text.isClickable = true
-                    holder.binding.text.requestFocus()
-                    editMode = true
-                    onPostEditListener.onPostEditStart()
-                } else {
-                    Glide.with(holder.itemView).load(R.drawable.ic_baseline_edit_24)
-                        .into(holder.binding.edit)
-                    holder.binding.text.isClickable = false
-                    editMode = false
-                    item.text = holder.binding.text.text.toString()
-                    onPostEditListener.onPostEditEnd(item)
-                    holder.binding.text.clearFocus()
-                }
+        binding.text.setText(item.text)
+        binding.edit.setOnClickListener {
+            if (!editMode) {
+                Glide.with(binding.root).load(R.drawable.ic_baseline_check_24)
+                    .into(binding.edit)
+                binding.text.isClickable = true
+                binding.text.requestFocus()
+                editMode = true
+                onPostEditListener.onPostEditStart()
+            } else {
+                Glide.with(binding.root).load(R.drawable.ic_baseline_edit_24)
+                    .into(binding.edit)
+                binding.text.isClickable = false
+                editMode = false
+                item.text = binding.text.text.toString()
+                onPostEditListener.onPostEditEnd(item)
+                binding.text.clearFocus()
             }
+        }
 
-            holder.binding.delete.setOnClickListener {
-                onPostEditListener.onPostDelete(item)
-            }
+        binding.delete.setOnClickListener {
+            onPostEditListener.onPostDelete(item)
         }
     }
 

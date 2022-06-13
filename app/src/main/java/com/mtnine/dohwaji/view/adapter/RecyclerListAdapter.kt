@@ -8,24 +8,20 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mtnine.dohwaji.R
+import com.mtnine.dohwaji.base.BasePagingAdapter
 import com.mtnine.dohwaji.databinding.LayoutItemBinding
 
 class RecyclerListAdapter() :
-    PagingDataAdapter<String, RecyclerListAdapter.RecyclerListViewHolder>(diffCallback) {
+    BasePagingAdapter<String, LayoutItemBinding>(diffCallback) {
 
-    inner class RecyclerListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val binding = LayoutItemBinding.bind(view)
-    }
+    override fun onCreate(
+        inflater: LayoutInflater,
+        parent: ViewGroup,
+        viewType: Int
+    ): LayoutItemBinding = LayoutItemBinding.inflate(inflater, parent, false)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerListViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.layout_item, parent, false)
-        return RecyclerListViewHolder(view)
-    }
-
-    override fun onBindViewHolder(holder: RecyclerListViewHolder, position: Int) {
-        val item = getItem(position)
-        holder.binding.text.text = item
+    override fun onBind(binding: LayoutItemBinding, item: String, position: Int) {
+        binding.text.text = item
     }
 
     companion object {
@@ -39,5 +35,4 @@ class RecyclerListAdapter() :
             }
         }
     }
-
 }

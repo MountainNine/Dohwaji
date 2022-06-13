@@ -8,12 +8,15 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.viewbinding.ViewBinding
 
-abstract class BaseFragment<B : ViewDataBinding>(@LayoutRes private val layoutResId: Int) : Fragment() {
+abstract class BaseFragment<B : ViewBinding> : Fragment() {
     protected lateinit var binding: B
 
+    abstract fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?):B
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate(inflater, layoutResId, container, false)
+        binding = getFragmentBinding(inflater, container)
         return binding.root
     }
 }
